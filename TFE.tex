@@ -1,0 +1,203 @@
+\RequirePackage[l2tabu, orthodox]{nag}
+\documentclass[11pt,uplatex,a4paper]{jsarticle}
+%% file: fem2dp-2.tex
+%% author: Junichi Motohisa
+%% created: 2017-11-21 18:32:34
+%% last saved : Time-stamp: <Sun Jan 12 09:47:41 JST 2020>
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{multicol}
+\usepackage{cite}
+%\usepackage{mathptmx}
+%\usepackage{color}
+\usepackage{lscape}
+% \usepackage{dcolumn}
+\usepackage{moreverb}
+% \usepackage[a4paper,margin=1in]{geometry}
+\usepackage[driver=dvipdfmx,truedimen]{geometry}
+% \geometry{left=30truemm,right=25truemm,top=25truemm,bottom=25truemm}
+\geometry{margin=1truein}
+% \usepackage[a4paper,margin=1in]{geometry}
+
+%% taken from https://github.com/ryseto/emacs_and_tex/blob/master/template.tex
+%% begin
+\usepackage{amsmath,amsfonts,amsthm}
+\usepackage{bm}
+\usepackage[protrusion=true,expansion=true]{microtype}
+\usepackage{siunitx}
+\usepackage{xcolor}
+%\usepackage[pdftex]{graphicx}
+%\usepackage[pdftex,bookmarks,colorlinks]{hyperref}
+% \usepackage[dvipdfmx]{hyperref}
+% \usepackage{pxjahyper}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext}
+\usepackage[varg]{newtxmath}
+\usepackage{booktabs}
+\usepackage{datetime}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{cleveref}
+\usepackage[numbers]{natbib}
+
+% \bibliographystyle{abbrvnat}
+\setlist{itemsep=-3pt}
+%% end
+
+\def\d#1#2{\frac{d #1}{d #2}}
+\def\dd#1#2{\frac{d^2 #1}{d #2^2}}
+\def\pd#1#2{\frac{\partial #1}{\partial #2}}
+\def\pdd#1#2{\frac{\partial^2 #1}{\partial #2^2}}
+\def\Ene{\varepsilon}
+\def\DOS{\mathcal{D}}
+\def\vec#1{{\bm{#1}}}
+\def\kvec{\bm{k}}
+\def\kvecp{{\bm{k}'}}
+\def\subvec#1{{\boldsymbol{\small #1}}}
+ 
+\def\GP{{\vec{G}_\parallel}}
+\def\GPP{{\vec{G}^\prime_\parallel}}
+\def\KP{{\vec{k}_\parallel}}
+\def\KP{{\vec{k}_\parallel}}
+\def\XP{{\vec{x}_\parallel}}
+
+\def\EneK{\varepsilon_{\kvec}}
+\def\EneKp{\varepsilon_{\kvec^{'}}}
+\def\EneKn{\varepsilon_{\kvec n}}
+\def\EneKnp{\varepsilon_{\kvec^{'} n^{'}}}
+\def\EneKm{\varepsilon_{m \vec{k}}}
+\def\EneKmp{\varepsilon_{m' \vec{k}'}}
+
+\def\bra#1{{\langle #1 |}}
+\def\ket#1{{| #1 \rangle}}
+\def\braket#1#2{{\langle #1 | #2 \rangle}}
+\def\av#1{{\langle #1 \rangle}}
+
+\def\sinc{\mathrm{sinc}}
+\def\sgn{\mathrm{sgn}_{n,p}}
+\def\Tr{{\mathrm{Tr}\, }}
+
+\def\micon{\mathrm{\mu m}}
+\def\nm{\mathrm{nm}}
+
+\begin{document}
+
+\title{Title}
+\author{J.~Motohisa\\Graduate School of IST, Hokkaido University}
+\date{\shortdate\today \, \ampmtime }
+\maketitle
+
+\section{Introduction}
+
+\section{Results}
+TFE理論における電流密度は順バイアス・逆バイアスによらず次式で与えられる。
+(Eq. (3.27) in Ref. \cite{rhoderick})
+\begin{equation}
+ J = J_s \exp\left(\frac{V}{E_0}\right)
+  \left\{ 1- \exp\left(- \frac{qV}{k_B T}\right)
+									   \right\}
+\end{equation}
+ここで
+\begin{equation}
+ E_{00} = \frac{\hbar}{2}
+  \sqrt \frac{N_D}{m^* \epsilon_S}
+\end{equation}
+および
+\begin{equation}
+ E_{0} = E_{00} \coth \left( \frac{E_{00}}{k_B T}\right)
+\end{equation}
+であり、$E_{00}$、$E_0$はいずれもeV単位で与えられている。
+一方飽和電流密度$J_S$はバイアス方向で異なり、
+順バイアスでは (Eq. (3.27a) in \cite{rhoderick})
+\begin{equation}
+ J_{sf} = \frac{J_m q \sqrt{\pi E_{00} (\phi_B - V- \xi)}}{k_B T \cosh (qE_{00}/k_B T)}
+  \exp \{-(\phi_B- \xi)/E_{0}\}
+\end{equation}
+ここで
+\begin{equation}
+ J_m = A^* T^2 \exp (-q \xi/k_B T)
+\end{equation}
+および
+\begin{equation}
+ A^{*} = \frac{4 \pi m^* k_B^2}{h^3}
+\end{equation}
+ならびに
+\begin{equation}
+ \xi = (E_C - E_F)/q
+\end{equation}
+また逆バイアスでは
+(Eq. (3.32) in \cite{rhoderick})
+\begin{equation}
+ J_{sr} = \frac{A^*T q \sqrt{\pi E_{00}}}{k_B}
+  \left\{
+   \frac{\phi_B}{\cosh^2(qE_{00}/k_B T)}-V-\xi 
+  \right\}^{1/2}
+   \exp(-\phi_B/E_0)
+\end{equation}
+$k_B T \gg q E_{00}$のとき、両者は一致することに注意。
+
+
+\section{Tunneling Current}
+\begin{equation}
+ \begin{split}
+  J&= q \int N_{\vec{k}} d^3\vec{k} T(E_z) v_z
+  [f(E_z + E_p)(1-f(E_z-E_p-qV))-f(E_z+E_p-qV)(1-f(E_z+E_p))] \\
+  &=\frac{2q}{(2 \pi)^3} \int d k_z \frac{1}{\hbar}\pd{E_z}{k_z} \int d^2 \vec{k}_p
+  T(E_z)[f(E_z+E_p)-f(E_z + E_p -qV))] \\
+  &=\frac{2q}{(2 \pi)^3\hbar} (2 \pi) \int dE_z T(E_z) \int k_p dk_p[f(E_z+E_p) - f(E_z + E_p -qV)] \\
+  &=\frac{2q}{(2 \pi)^2\hbar} \int dE_z T(E_z) \int dE_p \frac{m^*}{\hbar^2} [f(E_z+E_p) - f(E_z + E_p -qV)] \\
+  & =\frac{2qm^*}{(2 \pi)^2\hbar^3} \int dE_z T(E_z) \int dE_p [f(E_z+E_p) - f(E_z + E_p -qV)] \\
+  & =\frac{4 \pi q m^*}{h^3} \int dE_z T(E_z) \int dE_p [f(E_z+E_p) - f(E_z + E_p -qV)] \\
+ \end{split}
+\end{equation}
+
+\section{Thermionic-field emission}
+\begin{equation}
+ J_S = \frac{A^{**}T^2}{2 \pi k_B T}
+  \exp\left( \frac{\xi_2}{k_B T} - b_m - \frac{E_m}{k_B T}
+			 \right)
+  \sqrt{\frac{\pi}{f_m}}
+  [1+\mathrm{erf}
+(E_m \sqrt{f_m})]
+\end{equation}
+
+\subsection{Forward Bias}
+
+\begin{equation}
+ b_m + \frac{E_m}{k_B T} = \frac{E_B - qV + \xi_2}{E_0}
+\end{equation}
+
+\begin{equation}
+ f_m = \frac{\cosh^2 \left(\frac{E_{00}}{k_B T}\right)}{4 E_{00}(q \phi_B - q V + \xi_2)}
+\end{equation}
+
+\begin{equation}
+ E_m = \frac{q \phi_B - qV + \xi_2}{\cosh^2 \left(\frac{E_{00}}{k_B T}\right)}
+\end{equation}
+
+\begin{equation}
+ \xi_2 = E_C - E_F
+\end{equation}
+
+
+\begin{equation}
+ J_S = \frac{A^{**}T^2}{\pi k_B T}
+  \exp\left( \frac{\xi_2}{k_B T} - \frac{q \phi_B - qV + \xi_2}{E_{0}}
+			 \right)
+    \frac{\sqrt{\pi E_{00}(q \phi_B - q V + \xi_2)}}
+  {\cosh \left(\frac{E_{00}}{k_B T}\right)}
+\end{equation}
+
+\appendix
+
+ \begin{thebibliography}{99}
+  \bibitem{padovani1966} Padovani and Stratton (1966)
+  \bibitem{rhoderick} E. H. Rhoderick and R. H. Williams:
+		   \textit{Metal-Semiconductor Contacts} (2nd Ed.)
+     
+ \end{thebibliography}
+%% \bibliography{/Users/motohisa/Dropbox/Papers/rse}
+
+\end{document}
+
