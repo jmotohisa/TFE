@@ -54,6 +54,21 @@ def EMS(ems):
 def EPSILON(eps):
     return eps*const.epsilon_0
 
+def my_coth(x):
+    return(1/math.tanh(x))
+
+# barrier lowering lowering of the barrier height due to the image force
+# Isobe and Akazawa JJAP
+
+def deltaphi(p,phiS):
+    a=(const.elementary_charge**3*p.ND*np.abs(phiS)/(8*const.pi**2*EPSILON(p.eps_s)**3))
+    return a**0.25
+
+
+def Tmin_TFEvalid(V,p):
+    a=(math.sqrt(p.phiB/(p.phiB-V))/p.E00+math.sqrt(-p.E00*V/2))
+    return 1/a*const.elementary_charge/const.Boltzmann
+
 # Thermionic emission model (TE)
 #! effective Richardson constant
 def ARichardson(ems):
@@ -79,7 +94,7 @@ def func_E0(E00,temp):
 # Saturation current
 # Eq. (3.27a) in RW
 def Jsf_TFE(Vf,p) :
-    beta = const.elementary_charge//(p.temperature*const.Boltzmann)
+    beta = const.elementary_charge/(p.temperature*const.Boltzmann)
     jm = p.Astar*p.temperature**2*math.exp(-p.xi*beta)
     Js = jm*const.elementary_charge*math.sqrt(math.pi*p.E00*(p.phiB-Vf-p.xi))
     Js = Js/(const.Boltzmann*p.temperature*math.cosh(p.E00*beta))
